@@ -64,8 +64,6 @@ SCRIPTS = [
     "bin/makeBAM.sh",
     "bin/makeDiff.sh",
     "bin/makeFastq.sh",
-    "bin/getSeq_genome_woN.py",
-    "bin/getSeq_genome_woN.py",
 ]
 
 setup(
