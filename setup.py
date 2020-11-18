@@ -65,7 +65,12 @@ SCRIPTS = [
     "bin/makeDiff.sh",
     "bin/makeFastq.sh",
 ]
-
+ENTRY_POINTS = {
+    "console_scripts": [
+        "getSeq_genome_wN=ptools_bin.getSeq_genome_wN:main",
+        "getSeq_genome_woN=ptools_bin.getSeq_genome_woN:main",
+    ]
+}
 setup(
     name=NAME,
     version=VERSION,
@@ -82,4 +87,5 @@ setup(
     install_requires=INSTALL_REQUIRES,
     python_requires=">=3.5",
     scripts=SCRIPTS,
+    entry_points=ENTRY_POINTS,
 )

@@ -1,5 +1,5 @@
-import PrintSequence
-import PrintTransSequence
+from ptools_bin import PrintSequence
+from ptools_bin import PrintTransSequence
 
 __title__ = "ptools_bin"
 __version__ = "0.1"
