@@ -74,7 +74,8 @@ ENTRY_POINTS = {
         "print_unique=ptools_bin.print_unique:main",
         "10x_bam2fastq=ptools_bin.10xbam2fastq:main",
         "createDiff=ptools_bin.createDiff:main",
-        "compress=ptools_bin.compress:main"
+        "compress=ptools_bin.compress:main",
+        "pbam2bam=ptools_bin.pbam2bam:main",
     ]
 }
 setup(
