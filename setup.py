@@ -70,6 +70,11 @@ ENTRY_POINTS = {
         "getSeq_genome_wN=ptools_bin.getSeq_genome_wN:main",
         "getSeq_genome_woN=ptools_bin.getSeq_genome_woN:main",
         "pbam_mapped_transcriptome=ptools_bin.pbam_mapped_transcriptome:main",
+        "make_unique=ptools_bin.make_unique:main",
+        "print_unique=ptools_bin.print_unique:main",
+        "10x_bam2fastq=ptools_bin.10xbam2fastq:main",
+        "createDiff=ptools_bin.createDiff:main",
+        "compress=ptools_bin.compress:main"
     ]
 }
 setup(

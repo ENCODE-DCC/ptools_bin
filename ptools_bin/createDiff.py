@@ -88,5 +88,6 @@ def getfseq(cigar, seq):
     return m[0 : len(m) - 1]
 
 
-for line in sys.stdin:
-    MakeDiff(line)
+def main():
+    for line in sys.stdin:
+        MakeDiff(line)
