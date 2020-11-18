@@ -11,5 +11,5 @@ bam_basename=$(basename "$bam_path")
 bam_prefix=${bam_basename%.bam}
 
 samtools view -H "${bam_path}" > header.txt
-samtools view "${bam_path}" | python3 $(which pbam_mapped_transcriptome.py) "${tref}" "${gref}" header.txt "${gtf}" | samtools view -h -bS > "${bam_prefix}".p.bam
+samtools view "${bam_path}" | pbam_mapped_transcriptome "${tref}" "${gref}" header.txt "${gtf}" | samtools view -h -bS > "${bam_prefix}".p.bam
 rm header.txt
