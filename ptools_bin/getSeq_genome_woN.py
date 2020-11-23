@@ -1,5 +1,5 @@
 ## Gamze Gursoy ##
-##last edit March 24th, 2020
+##last edit Nov 23rd, 2020
 ## input arguments
 ## (1) reference genome
 ## (2) diff folder
@@ -52,6 +52,8 @@ def main():
                 pbam[i] = "NM:i:0"
             if t[0] == "nM":
                 pbam[i] = "nM:i:0"
+            if t[0] == "MC":
+                pbam[i] = "MC:Z:" + str(RL) + "M"
         chrom = str(pbam[2])
         startPos = int(pbam[3])
         if pbam[5] != "*" and "chr" in chrom:
