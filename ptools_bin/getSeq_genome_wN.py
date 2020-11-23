@@ -1,5 +1,5 @@
 ## Gamze Gursoy  ##
-## last edit: March 24th, 2020
+## last edit: Nov 23rd, 2020
 ## input arguments
 ## (1) reference genome
 ## (2) diff folder
@@ -87,6 +87,8 @@ def main():
                     pbam[i] = "NM:i:0"
                 if t[0] == "nM":
                     pbam[i] = "nM:i:0"
+                if t[0] == "MC":
+                    pbam[i] = "MC:Z:" + str(RL) + "M"
             if parsedCigar[0][1] == "S" or parsedCigar[0][1] == "D":
                 startPos = int(pbam[3]) - int(parsedCigar[0][0]) + delLength
             else:
