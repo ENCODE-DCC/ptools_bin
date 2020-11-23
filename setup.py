@@ -22,7 +22,7 @@ CLASSIFIERS = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: Implementation :: CPython",
 ]
-INSTALL_REQUIRES = ["numpy==1.19.2", "biopython==1.78", "pandas==1.1.3"]
+INSTALL_REQUIRES = ["numpy>=1.19.2", "biopython>=1.78", "pandas>=1.1.3"]
 
 HERE = os.path.abspath(os.path.dirname(__file__))
 
