@@ -1,5 +1,5 @@
 ## Gamze Gursoy  ##
-## last edit: Nov 23rd, 2020
+## last edit: Dec 7th, 2020
 ## input arguments
 ## (1) reference genome
 ## (2) diff folder
@@ -34,6 +34,10 @@ def ParseCigar(cigar):
 
 # following is necessary for querying sequences from reference genome
 def main():
+
+    conv1=['chr1','chr2','chr3','chr4','chr5','chr6','chr7','chr8','chr9','chr10','chr11','chr12','chr13','chr14','chr15','chr16','chr17','chr18','chr19','chr20','chr21','chr22','chrX','chrY','chrM','chrMT']
+
+    conv2=['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','X','Y','M','MT']
     with open(sys.argv[1], "rt") as f:
         ref = PrintSequence.Lookup(f)
 
@@ -54,7 +58,7 @@ def main():
         pbam = p.split("\t")
         RL = len(pbam[9])
         chrom = str(pbam[2])
-        if "chr" in chrom:
+        if (chrom in conv1) or (chrom in conv2):
             parsedCigar = ParseCigar(pbam[5])
             for i in range(0, len(parsedCigar)):
                 if parsedCigar[i][1] == "N":
