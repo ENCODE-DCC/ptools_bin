@@ -2,6 +2,7 @@
 
 import sys
 
+
 def main():
     bam = []
 
