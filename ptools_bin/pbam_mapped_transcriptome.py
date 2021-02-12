@@ -58,6 +58,10 @@ def main():
     for lineB in fileB:
         p = lineB.rstrip()
         pbam = p.split("\t")
+        # Leave spikeins and unaligned as is
+        if pbam[2] == "*" or "Spikein" in pbam[2]:
+            print(p)
+            continue
         if pbam[2] != "*":
             RL = len(pbam[9])
             nColpbam = len(pbam)
@@ -93,5 +97,3 @@ def main():
             print(nbam)
             nbam = ""
             bam = []
-        if pbam[2] == "*":
-            print(p)
