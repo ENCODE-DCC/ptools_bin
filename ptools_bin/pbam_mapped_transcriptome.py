@@ -13,23 +13,38 @@ import zlib, sys, time, base64
 import gzip
 import numpy as np
 import io
+from collections import namedtuple
 from . import PrintTransSequence
 from . import PrintSequence
 
+TranscriptInfo = namedtuple("Transcriptinfo", ["chromosome", "position"])
 
-def getFromGtfandGFa(transc, pos, length):
-    gtf = open(sys.argv[4], "r")
-    seq = ""
-    for line in gtf:
-        if not line.lstrip().startswith("#"):
-            g = line.rstrip()
-            gt = g.split("\t")
-            if gt[2] == "transcript" and transc in gt[8]:
-                chrom = str(gt[0])
-                posi = int(gt[3]) + pos
-                seq = ref2.query(chrom, posi - 1, length)
-                break
-    return seq
+
+def getFromGtfandGFa(
+    transcript_id, position, length, transcript_search_index, reference_lookup
+):
+    transcript_info = transcript_search_index[transcript_id]
+    chrom = transcript_info.chromosome
+    start_position = transcript_info.position + position
+    sequence = reference_lookup.query(chrom, start_position - 1, length)
+    return sequence
+
+
+def build_transcript_search_dict(path_to_gtf):
+    """Build a dict whose keys are transcript IDs and values are TranscriptInfo instances."""
+    search_dict = {}
+    with open(path_to_gtf) as fp:
+        for line in fp:
+            if line.startswith("#"):
+                continue
+            gtf_record = line.split("\t")
+            if gtf_record[2] == "transcript" or gtf_record[2] == "tRNA":
+                chromosome = str(gtf_record[0])
+                position = int(gtf_record[3])
+                transcript_id_raw = gtf_record[8].split()[3]
+                transcript_id = re.sub('"|;', "", transcript_id_raw)
+                search_dict[transcript_id] = TranscriptInfo(chromosome, position)
+    return search_dict
 
 
 # following is necessary for querying sequences from reference genome
@@ -50,6 +65,9 @@ def main():
     for line in hed:
         header.append(line.split("\n")[0])
     hed.close()
+
+    gtf_path = sys.argv[4]
+    transcript_search_index = build_transcript_search_dict(gtf_path)
 
     for i in range(0, len(header)):
         print("%s" % header[i])
@@ -81,7 +99,9 @@ def main():
             startPos = int(pbam[3])
             k = ref.query(chrom, startPos - 1, int(RL))
             if k == 0:
-                pbam[9] = getFromGtfandGFa(chrom, startPos - 1, int(RL))
+                pbam[9] = getFromGtfandGFa(
+                    chrom, startPos - 1, int(RL), transcript_search_index, ref2
+                )
             else:
                 pbam[9] = ref.query(chrom, startPos - 1, int(RL))
             pbam[5] = str(RL) + "M"
